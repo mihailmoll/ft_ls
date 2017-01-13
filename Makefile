@@ -1,20 +1,27 @@
-HEAD= ft_ls
+NAME= ft_ls
 
-SRC= ft_putstr.c ft_ls.c main.c sort.c
+CC= gcc -Wall -Wextra -Werror
+
+SRC= ft_ls.c main.c
 
 OBJ= $(SRC:.c=.o)
 
-all: $(HEAD)
+all: $(NAME)
 
-$(HEAD): $(OBJ)
-	gcc -o $(HEAD) $(OBJ)
+$(NAME): $(OBJ)
+	@ make -s -C libft/
+	@ echo "\033[1m\033[32mCompile ft_ls\033[m\033[1m\033[32m"
+	@ $(CC) -o $(NAME) $(OBJ)
 
 clean:
-	@ echo "\033[1m\033[31mClear *.o " "\033[m\033[1m[\033[32mDone\033[m\033[1m]\033[m"
+	@ echo "\033[1m\033[31mRemove \033[31m.o"
+	@ make -s -C libft/ clean
 	@ rm -rf *.o
 
 fclean: clean
-	rm -rf *.a
+	@ echo "\033[1m\033[31mRemove \033[31mfiles"
+	@ make -s -C libft/ fclean
+	@ rm -rf ft_ls
 
 re: fclean $(HEAD)
 
